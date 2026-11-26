@@ -1,0 +1,6 @@
+[OK]     T1 - HTTP 200 e pagina inicial contem os nomes da dupla
+[OK]     T2 - HTTP 200 e JSON de status valido em /api/status
+[OK]     T3 - HTTP 404 com pagina personalizada
+[OK]     T4 - SSH por chave publica autenticou e retornou 'bastion'
+[OK]     T5 - SSH sem chave recusado com Permission denied (publickey)
+--- Resumo internos: 5 OK, 0 FALHOU ---

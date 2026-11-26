@@ -1,0 +1,5 @@
+[OK]     T6 - HTTP 200 via DNAT em http://203.0.113.1/ com pagina da dupla
+[OK]     T7 - SSH na porta 2222 via DNAT retornou 'bastion'
+[OK]     T8 - NMAP confirmou apenas as portas 80/tcp e 2222/tcp abertas
+[OK]     T9 - IP privado 10.10.1.80 inacessivel a partir da Internet
+--- Resumo externos: 4 OK, 0 FALHOU ---
