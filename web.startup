@@ -1,0 +1,5 @@
+ip addr add 10.10.1.80/24 dev eth0
+ip link set eth0 up
+ip route add default via 10.10.1.1
+
+nginx

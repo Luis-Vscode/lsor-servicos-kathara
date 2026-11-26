@@ -1,0 +1,10 @@
+ip addr add 203.0.113.50/24 dev eth0
+ip link set eth0 up
+# Sem rota padrao: na "Internet", ext so alcanca 203.0.113.0/24
+
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+rm -f /root/.ssh/id_ed25519 /root/.ssh/id_ed25519.pub /shared/ext.pub
+ssh-keygen -t ed25519 -N "" -C "ext@inet" -f /root/.ssh/id_ed25519 >/dev/null
+cp /root/.ssh/id_ed25519.pub /shared/ext.pub.tmp
+mv /shared/ext.pub.tmp /shared/ext.pub

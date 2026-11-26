@@ -1,0 +1,30 @@
+ip addr add 10.10.1.22/24 dev eth0
+ip link set eth0 up
+ip route add default via 10.10.1.1
+
+# Cria usuario da dupla sem login por senha
+id dupla >/dev/null 2>&1 || useradd -m -s /bin/bash dupla
+usermod -p '*' dupla
+mkdir -p /home/dupla/.ssh
+chmod 700 /home/dupla/.ssh
+chown -R dupla:dupla /home/dupla/.ssh
+
+# Garante chaves de host geradas exclusivamente no boot
+rm -f /etc/ssh/ssh_host_*
+ssh-keygen -A
+
+mkdir -p /run/sshd
+/usr/sbin/sshd
+
+# Sincroniza chaves publicas geradas por admin e ext via /shared
+(
+  for i in $(seq 1 30); do
+    if ls /shared/*.pub >/dev/null 2>&1; then
+      cat /shared/*.pub 2>/dev/null | sort -u > /home/dupla/.ssh/authorized_keys
+      chown dupla:dupla /home/dupla/.ssh/authorized_keys
+      chmod 600 /home/dupla/.ssh/authorized_keys
+    fi
+    [ -f /shared/admin.pub ] && [ -f /shared/ext.pub ] && break
+    sleep 1
+  done
+) &
